@@ -12,6 +12,13 @@ if(isset($_POST) && count($_POST) || 1){
 	 	$line_select = mysql_fetch_array($sql_select);
 	 	//print_r($line_select);
 
+	 	$sql_player1 = mysql_query("select * from user where fb_id = '".$invited_by."'") or die(mysql_error());
+	 	$res_player1 = mysql_fetch_array($sql_player1);
+	 		
+	 	$sql_chk_game = mysql_query("select * from game where (player_one in ('".$res_player1['id']."', '".$line_select['id']."') or player_two in ('".$res_player1['id']."', '".$line_select['id']."')) and status!=2") or die(mysql_error());
+	 	$num_chk_game = mysql_num_rows($sql_chk_game);
+	 	$line_chk_game = mysql_fetch_assoc($sql_chk_game);
+
 	 	if(!mysql_num_rows($sql_select)){
 	 		$sql = "insert into user set
 	 					fb_id='".$fb_id."',
@@ -21,15 +28,19 @@ if(isset($_POST) && count($_POST) || 1){
 	 					updated_at = '".date("Y-m-d H:i:s")."'";
 	 		mysql_query($sql) or die(mysql_error());
 
+	 		$sql = "insert into game set
+		 				player_one = '".$res_player1['id']."',
+		 				player_two = '".$line_select['id']."',
+		 				status=0,
+		 				turn = '".$line_select['id']."',
+		 				created_at = '".date("Y-m-d H:i:s")."',
+		 				updated_at = '".date("Y-m-d H:i:s")."'";
+		 		mysql_query($sql) or die(mysql_error());
+
 	 		$response['STATUS'] = "1";
 	 		$response['MESSAGE'] = "Your friend invited join App!";
 	 	}elseif($line_select['status']==1){
-	 		$sql_player1 = mysql_query("select * from user where fb_id = '".$invited_by."'") or die(mysql_error());
-	 		$res_player1 = mysql_fetch_array($sql_player1);
 	 		
-	 		$sql_chk_game = mysql_query("select * from game where (player_one in ('".$res_player1['id']."', '".$line_select['id']."') or player_two in ('".$res_player1['id']."', '".$line_select['id']."')) and status!=2") or die(mysql_error());
-	 		$num_chk_game = mysql_num_rows($sql_chk_game);
-	 		$line_chk_game = mysql_fetch_assoc($sql_chk_game);
 	 		//print_r($line_chk_game);
 	 		if($num_chk_game && $line_chk_game['status']==0 && $line_chk_game['player_one']==$res_player1['id']){
 	 			$response['STATUS'] = "0";
