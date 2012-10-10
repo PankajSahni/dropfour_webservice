@@ -32,7 +32,7 @@ if(isset($_POST) && count($_POST) || 1){
 
 	 		$sql = "insert into game set
 		 				player_one = '".$res_player1['id']."',
-		 				player_two = '".$line_select['id']."',
+		 				player_two = '".$res_player1['id']."',
 		 				status=0,
 		 				turn = '".$line_select['id']."',
 		 				created_at = '".date("Y-m-d H:i:s")."',
