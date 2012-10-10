@@ -30,7 +30,7 @@ if(isset($_POST) && count($_POST) || 1){
 
 	 		$line_select['id'] = mysql_insert_id();
 
-	 		print $sql = "insert into game set
+	 		$sql = "insert into game set
 		 				player_one = '".$res_player1['id']."',
 		 				player_two = '".$line_select['id']."',
 		 				status=0,
