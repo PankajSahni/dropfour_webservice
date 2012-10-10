@@ -30,14 +30,15 @@ if(isset($_POST) && count($_POST) || 1){
 
 	 		$line_select['id'] = mysql_insert_id();
 
-	 		$sql = "insert into game set
+	 		print $sql = "insert into game set
 		 				player_one = '".$res_player1['id']."',
-		 				player_two = '".$res_player1['id']."',
+		 				player_two = '".$line_select['id']."',
 		 				status=0,
 		 				turn = '".$line_select['id']."',
 		 				created_at = '".date("Y-m-d H:i:s")."',
 		 				updated_at = '".date("Y-m-d H:i:s")."'";
-		 		mysql_query($sql) or die(mysql_error());
+		 	
+		 	mysql_query($sql) or die(mysql_error());
 
 	 		$response['STATUS'] = "1";
 	 		$response['MESSAGE'] = "Your friend invited join App!";
