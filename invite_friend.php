@@ -26,7 +26,9 @@ if(isset($_POST) && count($_POST) || 1){
 	 					invited_by='".$invited_by."',
 	 					created_at = '".date("Y-m-d H:i:s")."',
 	 					updated_at = '".date("Y-m-d H:i:s")."'";
-	 		mysql_query($sql) or die(mysql_error());
+	 		$res = mysql_query($sql) or die(mysql_error());
+
+	 		$line_select['id'] = mysql_insert_id();
 
 	 		$sql = "insert into game set
 		 				player_one = '".$res_player1['id']."',
