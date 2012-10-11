@@ -23,6 +23,14 @@ if(isset($json_data) && count($json_data) && $json_data['fb_id']!=''){
 	}
 	$response['my_turns'] = $my_turns;
 
+	$their_turn_sql = "select g.id game_id, u.* from game g inner join user u on g.player_one=u.id where (g.player_one in (select id from user u where u.fb_id = '".$fb_id."') or g.player_two in (select id from user u where u.fb_id = '".$fb_id."')) and g.turn not in (select id from user u where u.fb_id = '".$fb_id."') and g.status=1";
+	$their_turn_res = mysql_query($their_turn_sql) or die(mysql_error());
+	$their_turns = array();
+	while($their_turn_line = mysql_fetch_assoc($their_turn_res)){
+		$their_turns[] = array('game_id' => $their_turn_line['game_id'], id => $their_turn_line['fb_id'], 'name' => $their_turn_line['name']);
+	}
+	$response['their_turns'] = $their_turns;
+
 }else{
 	$response['STATUS'] = "0";
 	$response['MESSAGE'] = "Facebook Id is not provided!";
