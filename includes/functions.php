@@ -1,6 +1,5 @@
 <?php
 function calculateTime($created_at){
-	print $created_at;
 	$created_at_sec = strtotime($created_at);
 	$now = time();
 	$seconds = $now - $created_at_sec;
