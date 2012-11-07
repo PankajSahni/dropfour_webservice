@@ -28,6 +28,8 @@ if(isset($_POST) && count($_POST) || 1){
 			$sql_update = "update user set
 				name='$name',
 				status=1,
+                                device_token = '$device_token',
+                                device_type = '$device_type',
 				updated_at='$current_date' where fb_id='$fb_id'";
 			mysql_query($sql_update) or die(mysql_error());
 			$response['STATUS'] = "1";
