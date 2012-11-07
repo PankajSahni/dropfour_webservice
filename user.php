@@ -17,6 +17,8 @@ if(isset($_POST) && count($_POST) || 1){
 				name='$name',
 				status=1,
 				invited_by=0,
+                                device_token = '$device_token',
+                                device_type = '$device_type',
 				created_at='$current_date',
 				updated_at='$current_date'";
 			mysql_query($sql_insert) or die(mysql_error());
