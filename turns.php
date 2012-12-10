@@ -13,12 +13,14 @@ if (mysql_num_rows($query_get_last_move_user) == 1) {
         $current_date = date("Y-m-d H:i:s");
         $sql_insert_turn = "INSERT INTO turns SET
                                 turn_by = '" . $json_array['turn_by'] . "',
+                                file_name = '" . $json_array['file_name'] . "',
                                 game_id = '" . $json_array['game_id'] . "',
                                 status = '" . $json_array['status'] . "',
                                 position_x = '" . $json_array['position_x'] . "',
                                 position_y = '" . $json_array['position_y'] . "',
-				created_at='$current_date',
-				updated_at='$current_date'";
+                                moving = '" . $json_array['moving'] . "',
+				                created_at='$current_date',
+				                updated_at='$current_date'";
         $sql_update_game = "UPDATE game SET
                                 move = '" . $json_array['turn_by'] . "',
 				updated_at='$current_date'
