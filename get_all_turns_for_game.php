@@ -17,6 +17,7 @@ if (mysql_num_rows($query_get_all_turns_for_game) > 0) {
 }
  else {
     $response['STATUS'] = "0";
+    $response['TURNS'] = "";
     $response['MESSAGE'] = "Game Not Started Yet";
 }
 echo json_encode($response);
